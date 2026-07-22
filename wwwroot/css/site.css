@@ -1,0 +1,77 @@
+/* Colors */
+.text-\[#990000\] {
+    color: #990000;
+}
+.bg-\[#990000\] {
+    background-color: #990000;
+}
+.bg-\[#800000\]:hover {
+    background-color: #800000;
+}
+
+/* Layout & Spacing */
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.max-w-xl { max-width: 36rem; }
+.max-w-4xl { max-width: 56rem; }
+.w-full { width: 100%; }
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-6 { gap: 1.5rem; }
+.flex-col { flex-direction: column; }
+.text-center { text-align: center; }
+.space-y-3 > * + * { margin-top: 0.75rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.right-2 { right: 0.5rem; }
+.top-1 { top: 0.25rem; }
+
+/* Borders & Shadows */
+.rounded { border-radius: 0.25rem; }
+.rounded-t { border-top-left-radius: 0.25rem; border-top-right-radius: 0.25rem; }
+.rounded-b { border-bottom-left-radius: 0.25rem; border-bottom-right-radius: 0.25rem; }
+.border { border-width: 1px; border-style: solid; }
+.border-gray-200 { border-color: #e5e7eb; }
+.border-gray-300 { border-color: #d1d5db; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+
+/* Typography */
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.875rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-5xl { font-size: 3rem; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.leading-tight { line-height: 1.1; }
+
+/* Colors for text and bg */
+.text-gray-50 { color: #f9fafb; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-700 { color: #374151; }
+.text-gray-800 { color: #1f2937; }
+.text-white { color: #ffffff; }
+.text-blue-600 { color: #2563eb; }
+.bg-white { background-color: #ffffff; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.bg-red-100 { background-color: #fee2e2; }
+.text-red-700 { color: #b91c1c; }
+
+/* Input & Button */
+input:focus { outline: none; }
+.hover\:bg-gray-300:hover { background-color: #d1d5db; }
+.hover\:underline:hover { text-decoration: underline; }

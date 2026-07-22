@@ -1,0 +1,259 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Branch Dashboard</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            body {
+                background-color: #f8fafc;
+                color: #1e293b;
+            }
+
+            .app-container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 220px;
+                background-color: #ffffff;
+                border-right: 1px solid #e2e8f0;
+                padding: 24px 16px;
+            }
+
+                .sidebar .logo {
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #990000;
+                    margin-bottom: 32px;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .sidebar nav a {
+                    display: block;
+                    padding: 12px 16px;
+                    margin-bottom: 8px;
+                    border-radius: 6px;
+                    color: #475569;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: background 0.2s;
+                }
+
+                    .sidebar nav a:hover,
+                    .sidebar nav a.active {
+                        background-color: #f1f5f9;
+                        color: #990000;
+                    }
+
+            .main-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .top-header {
+                background-color: #ffffff;
+                padding: 16px 32px;
+                border-bottom: 1px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .header-left h1 {
+                font-size: 24px;
+                font-weight: 600;
+                color: #0f172a;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+                color: #64748b;
+                margin-top: 4px;
+            }
+
+            .header-right {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .add-btn {
+                background-color: #990000;
+                color: white;
+                border: none;
+                padding: 10px 18px;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                text-decoration: none;
+                transition: background 0.2s;
+            }
+
+                .add-btn:hover {
+                    background-color: #990000;
+                }
+
+            .logout-btn {
+                background-color: #990000;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+                .logout-btn:hover {
+                    background-color: #800000;
+                }
+
+            .content-wrapper {
+                padding: 32px;
+                flex: 1;
+            }
+
+            .table-container {
+                background-color: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                overflow: hidden;
+                border: 1px solid #e2e8f0;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+                table thead {
+                    background-color: #f8fafc;
+                }
+
+                table th, table td {
+                    padding: 14px 16px;
+                    text-align: left;
+                    border-bottom: 1px solid #e2e8f0;
+                    font-size: 14px;
+                }
+
+                table th {
+                    font-weight: 600;
+                    color: #334155;
+                }
+
+                table tbody tr:hover {
+                    background-color: #fafbfc;
+                }
+
+            .status-active {
+                color: #15803d;
+                font-weight: 500;
+            }
+
+            .status-inactive {
+                color: #dc2626;
+                font-weight: 500;
+            }
+
+            .page-footer {
+                text-align: center;
+                padding: 16px;
+                font-size: 12px;
+                color: #94a3b8;
+                border-top: 1px solid #e2e8f0;
+            }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+
+        <aside class="sidebar">
+            <div class="logo">🏢 Inventory</div>
+            <nav>
+                <a href="#" class="active">📊 Dashboard</a>
+                <a href="#">🏬 Branches</a>
+                <a href="#">📦 Inventory</a>
+                <a href="#">⚙️ Settings</a>
+                <a href="#">🔒 Security</a>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <h1>Branches List</h1>
+                    <p class="page-subtitle">Dashboard > Branches</p>
+                </div>
+                <div class="header-right">
+                    <a asp-action="CreateBranch" class="add-btn">+ Add New Branch</a>
+                    <a asp-action="Logout" class="logout-btn">🚪 Logout</a>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Branch ID</th>
+                                <th>Branch Name</th>
+                                <th>Business Type</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Manager</th>
+                                <th>Registration Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.Branches != null)
+                            {
+                                foreach (var branch in ViewBag.Branches)
+                                {
+                                    <tr>
+                                        <td>@branch.BRANCH_ID</td>
+                                        <td>@branch.BRANCH</td>
+                                        <td>@branch.BUSINESS_TYPE</td>
+                                        <td>@branch.CONTACT</td>
+                                        <td>@branch.EMAIL</td>
+                                        <td>@branch.MANAGER</td>
+                                        <td>@branch.REGISTRATION_DATE.ToString("dd MMM yyyy")</td>
+                                        <td class="@branch.STATUS == " Active" ? "status-active" : "status-inactive" ">@branch.STATUS</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" style="text-align: center; color: #94a3b8; padding: 24px;">No branches found.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <footer class="page-footer">
+                © 2024 Your Business Name. All rights reserved.
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

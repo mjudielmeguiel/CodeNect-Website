@@ -1,0 +1,489 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeNect System Alliance</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            :root {
+                --primary: #990000;
+                --primary-hover: #800000;
+                --light-gray: #f8f9fa;
+                --border-gray: #e5e7eb;
+                --text-gray: #6b7280;
+                --text-dark: #111827;
+            }
+
+            body {
+                background-color: #ffffff;
+                color: var(--text-dark);
+                line-height: 1.6;
+            }
+
+            .container {
+                max-width: 1140px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+            /* Header */
+            header {
+                padding: 20px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--text-dark);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+                .logo span:first-child {
+                    color: var(--primary);
+                    font-size: 22px;
+                }
+
+            .nav-links {
+                display: flex;
+                align-items: center;
+                gap: 28px;
+                font-size: 14px;
+            }
+
+                .nav-links a {
+                    text-decoration: none;
+                    color: var(--text-dark);
+                    font-weight: 500;
+                }
+
+                    .nav-links a:hover {
+                        color: var(--primary);
+                    }
+
+            .btn-login-nav {
+                background-color: var(--primary);
+                color: white !important;
+                padding: 8px 20px;
+                border-radius: 4px;
+                transition: background 0.2s;
+            }
+
+                .btn-login-nav:hover {
+                    background-color: var(--primary-hover);
+                    color: white !important;
+                }
+
+            /* Hero Section */
+            .hero-section {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 60px 0;
+                gap: 40px;
+            }
+
+            .hero-left {
+                flex: 1;
+            }
+
+            .badge {
+                display: inline-block;
+                font-size: 12px;
+                color: var(--primary);
+                background-color: #fff0f0;
+                padding: 4px 12px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+
+            .hero-left h1 {
+                font-size: 48px;
+                font-weight: 800;
+                line-height: 1.1;
+                margin-bottom: 20px;
+            }
+
+                .hero-left h1 span {
+                    color: var(--primary);
+                }
+
+            .hero-left p {
+                font-size: 16px;
+                color: var(--text-gray);
+                margin-bottom: 32px;
+                max-width: 450px;
+            }
+
+            .stats-row {
+                display: flex;
+                gap: 32px;
+            }
+
+            .stat-item {
+                text-align: center;
+            }
+
+            .stat-value {
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--primary);
+            }
+
+            .stat-label {
+                font-size: 12px;
+                text-transform: uppercase;
+                color: var(--text-gray);
+                letter-spacing: 0.5px;
+            }
+
+            /* Login Card */
+            .login-card {
+                width: 340px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                padding: 24px;
+                border: 1px solid #f0f0f0;
+            }
+
+                .login-card h3 {
+                    text-align: center;
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: var(--primary);
+                    margin-bottom: 4px;
+                }
+
+            .login-tagline {
+                text-align: center;
+                font-size: 12px;
+                color: var(--text-gray);
+                font-style: italic;
+                margin-bottom: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+                .form-group label {
+                    display: block;
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-bottom: 6px;
+                    color: var(--text-dark);
+                }
+
+                .form-group input {
+                    width: 100%;
+                    padding: 10px 12px;
+                    border: 1px solid var(--border-gray);
+                    border-radius: 4px;
+                    font-size: 14px;
+                    background-color: #f9f9f9;
+                }
+
+                    .form-group input:focus {
+                        outline: none;
+                        border-color: var(--primary);
+                        box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+                    }
+
+            .password-wrapper {
+                position: relative;
+            }
+
+            .toggle-pass {
+                position: absolute;
+                right: 12px;
+                top: 10px;
+                cursor: pointer;
+                color: var(--text-gray);
+            }
+
+            .btn-login {
+                width: 100%;
+                background-color: var(--primary);
+                color: white;
+                border: none;
+                padding: 11px;
+                font-size: 15px;
+                font-weight: 600;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+                .btn-login:hover {
+                    background-color: var(--primary-hover);
+                }
+
+            .btn-exit {
+                width: 100%;
+                background-color: #e9ecef;
+                color: var(--text-dark);
+                border: none;
+                padding: 11px;
+                font-size: 15px;
+                font-weight: 500;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+                .btn-exit:hover {
+                    background-color: #dee2e6;
+                }
+
+            .login-links {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 13px;
+            }
+
+                .login-links a {
+                    color: var(--primary);
+                    text-decoration: none;
+                    font-weight: 500;
+                }
+
+                    .login-links a:hover {
+                        text-decoration: underline;
+                    }
+
+            .error-msg {
+                margin-top: 12px;
+                padding: 8px;
+                background-color: #fff2f2;
+                border: 1px solid #ffd6d6;
+                color: #b30000;
+                font-size: 13px;
+                text-align: center;
+                border-radius: 4px;
+            }
+
+            /* Modules Section */
+            .modules-section {
+                background-color: var(--light-gray);
+                padding: 50px 0 70px;
+            }
+
+            .modules-header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+                .modules-header h2 {
+                    font-size: 22px;
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                }
+
+                .modules-header p {
+                    font-size: 14px;
+                    color: var(--text-gray);
+                }
+
+            .modules-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .module-card {
+                background-color: white;
+                border-radius: 6px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            }
+
+            .module-header {
+                background-color: var(--primary);
+                color: white;
+                padding: 10px 14px;
+                font-size: 14px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .module-body {
+                padding: 14px;
+                font-size: 13px;
+                color: var(--text-gray);
+            }
+
+                .module-body strong {
+                    color: var(--text-dark);
+                    display: block;
+                    margin-bottom: 6px;
+                }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span>C</span> CodeNect System Alliance
+            </div>
+            <nav class="nav-links">
+                <a href="#">System Overview</a>
+                <a href="#">Modules</a>
+                <a href="#">Security</a>
+                <a href="#">Support</a>
+                <a href="#login" class="btn-login-nav">Login to System</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero & Login Section -->
+    <div class="container hero-section">
+        <div class="hero-left">
+            <div class="badge">Official Business & Inventory Platform</div>
+            <h1>All Operations.<br><span>One System.</span></h1>
+            <p>
+                CodeNect System Alliance — complete tools for inventory, stock management, ordering, transfers, and reporting. Built for speed, accuracy, and control.
+            </p>
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-value">5+</div>
+                    <div class="stat-label">BRANCHES</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">10K+</div>
+                    <div class="stat-label">PRODUCTS</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">ACCESS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Box -->
+        <div id="login" class="login-card">
+            <h3>CODENECT SYSTEM ALLIANCE</h3>
+            <p class="login-tagline">"Experience Better for Improving Services"</p>
+
+            <form asp-action="Login" method="post">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" name="Username" placeholder="Enter Username" required />
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="Password" id="passwordField" placeholder="Enter Password" required />
+                        <span class="toggle-pass" onclick="togglePass()">👁</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login">🔒 Login</button>
+                <button type="reset" class="btn-exit">📁 Exit</button>
+            </form>
+
+            <div class="login-links">
+                <a href="#">Forgot Account?</a><br>
+                Don't have an account? <a asp-action="Register">Create Account</a>
+            </div>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="error-msg">@ViewBag.Error</div>
+            }
+        </div>
+    </div>
+
+    <!-- Modules Section -->
+    <section class="modules-section">
+        <div class="container">
+            <div class="modules-header">
+                <h2>Available System Modules</h2>
+                <p>All the tools you use daily in one unified platform — same look and function as your existing system.</p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">👤 IT SUPPORT DASHBOARD</div>
+                    <div class="module-body">
+                        <strong>File • Monitoring • Settings • Reports • Products • Branches • Vendors • Sales</strong>
+                        Main control panel — view inventory, transactions, user info, and system status in real-time.
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">📦 STOCK ORDER</div>
+                    <div class="module-body">
+                        <strong>Create orders from suppliers, assign to branches, track status</strong>
+                        Input barcode, quantity, vendor details, and submit purchase requests easily.
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">↔️ STOCK TRANSFER</div>
+                    <div class="module-body">
+                        <strong>Move items between branches, record quantities, update inventory</strong>
+                        Transfer stock from one location to another with full audit trail.
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">📤 RETURN TO VENDOR</div>
+                    <div class="module-body">
+                        <strong>Process returns, update stock out, track credit notes</strong>
+                        Log damaged, expired, or wrong items sent back to suppliers.
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">📊 INVENTORY MANAGEMENT</div>
+                    <div class="module-body">
+                        <strong>Add, update, remove items, export data, view stock levels</strong>
+                        Complete control of your stock — prices, sizes, brands, and availability.
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">💲 PRICE ADJUSTMENT</div>
+                    <div class="module-body">
+                        <strong>Update costs, selling prices, and vendor info instantly</strong>
+                        Change pricing details and product information without leaving the system.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+            function togglePass() {
+                const el = document.getElementById('passwordField');
+                el.type = el.type === 'password' ? 'text' : 'password';
+            }
+    </script>
+
+</body>
+</html>
