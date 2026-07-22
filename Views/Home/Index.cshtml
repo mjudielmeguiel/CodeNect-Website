@@ -23,6 +23,7 @@
                 --border-gray: #e5e7eb;
                 --text-gray: #6b7280;
                 --text-dark: #111827;
+                --white: #ffffff;
             }
 
             body {
@@ -74,32 +75,21 @@
                     text-decoration: none;
                     color: var(--text-dark);
                     font-weight: 500;
+                    transition: color 0.2s;
                 }
 
                     .nav-links a:hover {
                         color: var(--primary);
                     }
 
-            .btn-login-nav {
-                background-color: var(--primary);
-                color: white !important;
-                padding: 8px 20px;
-                border-radius: 4px;
-                transition: background 0.2s;
-            }
-
-                .btn-login-nav:hover {
-                    background-color: var(--primary-hover);
-                    color: white !important;
-                }
-
             /* Hero Section */
             .hero-section {
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
+                align-items: center;
                 padding: 60px 0;
                 gap: 40px;
+                min-height: 80vh;
             }
 
             .hero-left {
@@ -111,13 +101,14 @@
                 font-size: 12px;
                 color: var(--primary);
                 background-color: #fff0f0;
-                padding: 4px 12px;
+                padding: 5px 14px;
                 border-radius: 20px;
                 margin-bottom: 20px;
+                font-weight: 500;
             }
 
             .hero-left h1 {
-                font-size: 48px;
+                font-size: 52px;
                 font-weight: 800;
                 line-height: 1.1;
                 margin-bottom: 20px;
@@ -128,85 +119,111 @@
                 }
 
             .hero-left p {
-                font-size: 16px;
+                font-size: 17px;
                 color: var(--text-gray);
-                margin-bottom: 32px;
-                max-width: 450px;
+                margin-bottom: 30px;
+                max-width: 480px;
+                line-height: 1.7;
             }
+
+            /* Download Button */
+            .btn-download {
+                display: inline-block;
+                background-color: var(--primary);
+                color: var(--white);
+                border: none;
+                padding: 12px 28px;
+                font-size: 15px;
+                font-weight: 600;
+                border-radius: 6px;
+                text-decoration: none;
+                margin-bottom: 35px;
+                transition: background-color 0.2s ease;
+                cursor: default;
+            }
+
+                .btn-download:hover {
+                    background-color: var(--primary-hover);
+                }
 
             .stats-row {
                 display: flex;
-                gap: 32px;
+                gap: 40px;
             }
 
             .stat-item {
-                text-align: center;
+                text-align: left;
             }
 
             .stat-value {
-                font-size: 28px;
+                font-size: 32px;
                 font-weight: 700;
                 color: var(--primary);
+                display: block;
+                line-height: 1;
             }
 
             .stat-label {
-                font-size: 12px;
+                font-size: 13px;
                 text-transform: uppercase;
                 color: var(--text-gray);
-                letter-spacing: 0.5px;
+                letter-spacing: 0.8px;
+                margin-top: 4px;
             }
 
-            /* Login Card */
+            /* Modern Login Card */
             .login-card {
-                width: 340px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-                padding: 24px;
-                border: 1px solid #f0f0f0;
+                width: 360px;
+                background: var(--white);
+                border-radius: 12px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03);
+                padding: 32px 28px;
+                border: none;
             }
 
                 .login-card h3 {
                     text-align: center;
-                    font-size: 16px;
+                    font-size: 18px;
                     font-weight: 700;
-                    color: var(--primary);
-                    margin-bottom: 4px;
+                    color: var(--text-dark);
+                    margin-bottom: 6px;
                 }
 
             .login-tagline {
                 text-align: center;
-                font-size: 12px;
+                font-size: 13px;
                 color: var(--text-gray);
-                font-style: italic;
-                margin-bottom: 24px;
+                font-style: normal;
+                margin-bottom: 28px;
             }
 
             .form-group {
-                margin-bottom: 16px;
+                margin-bottom: 20px;
             }
 
                 .form-group label {
                     display: block;
                     font-size: 14px;
                     font-weight: 500;
-                    margin-bottom: 6px;
+                    margin-bottom: 8px;
                     color: var(--text-dark);
                 }
 
                 .form-group input {
                     width: 100%;
-                    padding: 10px 12px;
-                    border: 1px solid var(--border-gray);
-                    border-radius: 4px;
-                    font-size: 14px;
-                    background-color: #f9f9f9;
+                    padding: 12px 16px;
+                    border: 1.5px solid var(--border-gray);
+                    border-radius: 8px;
+                    font-size: 15px;
+                    background-color: #fcfcfc;
+                    transition: all 0.2s ease;
                 }
 
                     .form-group input:focus {
                         outline: none;
                         border-color: var(--primary);
-                        box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+                        background-color: var(--white);
+                        box-shadow: 0 0 0 3px rgba(153, 0, 0, 0.1);
                     }
 
             .password-wrapper {
@@ -215,78 +232,66 @@
 
             .toggle-pass {
                 position: absolute;
-                right: 12px;
-                top: 10px;
+                right: 14px;
+                top: 13px;
                 cursor: pointer;
                 color: var(--text-gray);
+                font-size: 16px;
             }
 
             .btn-login {
                 width: 100%;
                 background-color: var(--primary);
-                color: white;
+                color: var(--white);
                 border: none;
-                padding: 11px;
-                font-size: 15px;
+                padding: 13px;
+                font-size: 16px;
                 font-weight: 600;
-                border-radius: 4px;
-                margin-bottom: 10px;
+                border-radius: 8px;
                 cursor: pointer;
-                transition: background 0.2s;
+                transition: background-color 0.2s ease;
+                margin-top: 8px;
             }
 
                 .btn-login:hover {
                     background-color: var(--primary-hover);
                 }
 
-            .btn-exit {
-                width: 100%;
-                background-color: #e9ecef;
-                color: var(--text-dark);
-                border: none;
-                padding: 11px;
-                font-size: 15px;
-                font-weight: 500;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background 0.2s;
-            }
-
-                .btn-exit:hover {
-                    background-color: #dee2e6;
-                }
-
             .login-links {
                 text-align: center;
-                margin-top: 20px;
+                margin-top: 22px;
                 font-size: 13px;
+                line-height: 1.8;
             }
 
                 .login-links a {
                     color: var(--primary);
                     text-decoration: none;
                     font-weight: 500;
+                    transition: color 0.2s;
                 }
 
                     .login-links a:hover {
+                        color: var(--primary-hover);
                         text-decoration: underline;
                     }
 
             .error-msg {
-                margin-top: 12px;
-                padding: 8px;
+                margin-top: 16px;
+                padding: 10px;
                 background-color: #fff2f2;
                 border: 1px solid #ffd6d6;
                 color: #b30000;
                 font-size: 13px;
                 text-align: center;
-                border-radius: 4px;
+                border-radius: 6px;
             }
 
             /* Modules Section */
             .modules-section {
                 background-color: var(--light-gray);
                 padding: 50px 0 70px;
+                margin-top: 20px;
             }
 
             .modules-header {
@@ -295,51 +300,48 @@
             }
 
                 .modules-header h2 {
-                    font-size: 22px;
+                    font-size: 24px;
                     font-weight: 700;
                     margin-bottom: 8px;
                 }
 
                 .modules-header p {
-                    font-size: 14px;
+                    font-size: 15px;
                     color: var(--text-gray);
                 }
 
             .modules-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
+                gap: 24px;
             }
 
             .module-card {
-                background-color: white;
-                border-radius: 6px;
+                background-color: var(--white);
+                border-radius: 10px;
                 overflow: hidden;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+                transition: transform 0.2s ease;
             }
+
+                .module-card:hover {
+                    transform: translateY(-2px);
+                }
 
             .module-header {
                 background-color: var(--primary);
-                color: white;
-                padding: 10px 14px;
-                font-size: 14px;
+                color: var(--white);
+                padding: 12px 16px;
+                font-size: 15px;
                 font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 8px;
             }
 
             .module-body {
-                padding: 14px;
-                font-size: 13px;
+                padding: 16px;
+                font-size: 14px;
                 color: var(--text-gray);
+                line-height: 1.7;
             }
-
-                .module-body strong {
-                    color: var(--text-dark);
-                    display: block;
-                    margin-bottom: 6px;
-                }
     </style>
 </head>
 <body>
@@ -355,7 +357,6 @@
                 <a href="#">Modules</a>
                 <a href="#">Security</a>
                 <a href="#">Support</a>
-                <a href="#login" class="btn-login-nav">Login to System</a>
             </nav>
         </div>
     </header>
@@ -368,42 +369,45 @@
             <p>
                 CodeNect System Alliance — complete tools for inventory, stock management, ordering, transfers, and reporting. Built for speed, accuracy, and control.
             </p>
+
+            <!-- Download Now Button -->
+            <a href="https://github.com/mjudielmeguiel/CodeNect-System-Alliance.git" class="btn-download">Download Now</a>
+
             <div class="stats-row">
                 <div class="stat-item">
-                    <div class="stat-value">5+</div>
-                    <div class="stat-label">BRANCHES</div>
+                    <span class="stat-value">5+</span>
+                    <span class="stat-label">BRANCHES</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">10K+</div>
-                    <div class="stat-label">PRODUCTS</div>
+                    <span class="stat-value">10K+</span>
+                    <span class="stat-label">PRODUCTS</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">24/7</div>
-                    <div class="stat-label">ACCESS</div>
+                    <span class="stat-value">24/7</span>
+                    <span class="stat-label">ACCESS</span>
                 </div>
             </div>
         </div>
 
-        <!-- Login Box -->
+        <!-- Modern Login Box -->
         <div id="login" class="login-card">
             <h3>CODENECT SYSTEM ALLIANCE</h3>
             <p class="login-tagline">"Experience Better for Improving Services"</p>
 
             <form asp-action="Login" method="post">
                 <div class="form-group">
-                    <label>Username:</label>
-                    <input type="text" name="Username" placeholder="Enter Username" required />
+                    <label>Username</label>
+                    <input type="text" name="Username" placeholder="Enter your username" required />
                 </div>
                 <div class="form-group">
-                    <label>Password:</label>
+                    <label>Password</label>
                     <div class="password-wrapper">
-                        <input type="password" name="Password" id="passwordField" placeholder="Enter Password" required />
+                        <input type="password" name="Password" id="passwordField" placeholder="Enter your password" required />
                         <span class="toggle-pass" onclick="togglePass()">👁</span>
                     </div>
                 </div>
 
-                <button type="submit" class="btn-login">🔒 Login</button>
-                <button type="reset" class="btn-exit">📁 Exit</button>
+                <button type="submit" class="btn-login">Login</button>
             </form>
 
             <div class="login-links">
@@ -428,49 +432,49 @@
 
             <div class="modules-grid">
                 <div class="module-card">
-                    <div class="module-header">👤 IT SUPPORT DASHBOARD</div>
+                    <div class="module-header">IT SUPPORT DASHBOARD</div>
                     <div class="module-body">
-                        <strong>File • Monitoring • Settings • Reports • Products • Branches • Vendors • Sales</strong>
+                        <strong>File • Monitoring • Settings • Reports • Products • Branches • Vendors • Sales</strong><br>
                         Main control panel — view inventory, transactions, user info, and system status in real-time.
                     </div>
                 </div>
 
                 <div class="module-card">
-                    <div class="module-header">📦 STOCK ORDER</div>
+                    <div class="module-header">STOCK ORDER</div>
                     <div class="module-body">
-                        <strong>Create orders from suppliers, assign to branches, track status</strong>
+                        <strong>Create orders from suppliers, assign to branches, track status</strong><br>
                         Input barcode, quantity, vendor details, and submit purchase requests easily.
                     </div>
                 </div>
 
                 <div class="module-card">
-                    <div class="module-header">↔️ STOCK TRANSFER</div>
+                    <div class="module-header">STOCK TRANSFER</div>
                     <div class="module-body">
-                        <strong>Move items between branches, record quantities, update inventory</strong>
+                        <strong>Move items between branches, record quantities, update inventory</strong><br>
                         Transfer stock from one location to another with full audit trail.
                     </div>
                 </div>
 
                 <div class="module-card">
-                    <div class="module-header">📤 RETURN TO VENDOR</div>
+                    <div class="module-header">RETURN TO VENDOR</div>
                     <div class="module-body">
-                        <strong>Process returns, update stock out, track credit notes</strong>
+                        <strong>Process returns, update stock out, track credit notes</strong><br>
                         Log damaged, expired, or wrong items sent back to suppliers.
                     </div>
                 </div>
 
                 <div class="module-card">
-                    <div class="module-header">📊 INVENTORY MANAGEMENT</div>
+                    <div class="module-header">INVENTORY MANAGEMENT</div>
                     <div class="module-body">
-                        <strong>Add, update, remove items, export data, view stock levels</strong>
+                        <strong>Add, update, remove items, export data, view stock levels</strong><br>
                         Complete control of your stock — prices, sizes, brands, and availability.
                     </div>
                 </div>
 
                 <div class="module-card">
-                    <div class="module-header">💲 PRICE ADJUSTMENT</div>
+                    <div class="module-header">PRICE ADJUSTMENT</div>
                     <div class="module-body">
-                        <strong>Update costs, selling prices, and vendor info instantly</strong>
+                        <strong>Update costs, selling prices, and vendor info instantly</strong><br>
                         Change pricing details and product information without leaving the system.
                     </div>
                 </div>
