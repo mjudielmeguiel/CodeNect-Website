@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Create New User Account";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New User Account</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            body {
+                background-color: #f8fafc;
+                color: #1e293b;
+            }
+
+            .form-container {
+                max-width: 750px;
+                margin: 30px auto;
+                background: #ffffff;
+                padding: 30px;
+                border-radius: 6px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                border: 1px solid #e5e7eb;
+            }
+
+            .form-title {
+                text-align: center;
+                font-size: 22px;
+                font-weight: bold;
+                color: #990000;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                margin-bottom: 25px;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+                .form-group.full-width {
+                    grid-column: 1 / -1;
+                }
+
+                .form-group label {
+                    font-weight: 500;
+                    font-size: 14px;
+                    margin-bottom: 6px;
+                    color: #333;
+                }
+
+                .form-group input,
+                .form-group select {
+                    padding: 10px 12px;
+                    border: 1px solid #990000;
+                    border-radius: 3px;
+                    font-size: 14px;
+                    background: #fff;
+                }
+
+                    .form-group input:focus,
+                    .form-group select:focus {
+                        outline: none;
+                        border-color: #800000;
+                        box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+                    }
+
+            .btn-submit {
+                width: 100%;
+                background-color: #990000;
+                color: #ffffff;
+                border: none;
+                padding: 12px;
+                border-radius: 3px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+
+                .btn-submit:hover {
+                    background-color: #800000;
+                }
+
+            .back-link {
+                text-align: center;
+                margin-top: 15px;
+            }
+
+                .back-link a {
+                    color: #990000;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                    .back-link a:hover {
+                        text-decoration: underline;
+                    }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="form-title">CREATE NEW USER ACCOUNT</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Error))
+        {
+            <div style="background:#fef2f2; color:#991b1b; padding:10px; border-radius:4px; margin-bottom:15px; border:1px solid #fecaca;">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-action="CreateUserSubmit" method="post">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Branch</label>
+                    <select name="BRANCH_ID" id="BRANCH_ID">
+                        <option value="">-- Select Branch --</option>
+                        @foreach (var branch in ViewBag.Branches ?? new List<dynamic>())
+                        {
+                            <option value="@branch.Id">@branch.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Username *</label>
+                    <input type="text" name="USERNAME" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" name="PASSWORD" required />
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Full Name *</label>
+                    <input type="text" name="FULL_NAME" required />
+                </div>
+
+                <div class="form-group">
+                    <label>User Type *</label>
+                    <select name="USER_TYPE" id="USER_TYPE" required>
+                        <option value="Staff" selected>Staff</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select name="STATUS" required>
+                        <option value="Active" selected>Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="EMAIL" />
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" name="CONTACT" />
+                </div>
+
+                <!-- 🚫 Profile Image section removed entirely -->
+
+            </div>
+
+            <button type="submit" class="btn-submit">✅ Save User Account</button>
+        </form>
+
+        <div class="back-link">
+            <a href="@Url.Action("UserAccount")">← Back to User List</a>
+        </div>
+    </div>
+
+</body>
+</html>

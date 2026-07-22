@@ -1,0 +1,252 @@
+﻿@{
+    ViewData["Title"] = "Users List";
+    var users = ViewBag.Users as List<CodeNect_Website.Models.UserAccountModel> ?? new List<CodeNect_Website.Models.UserAccountModel>();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users List</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            body {
+                background-color: #f8fafc;
+                color: #1e293b;
+            }
+
+            .app-container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* --- SIDEBAR --- */
+            .sidebar {
+                width: 200px;
+                background-color: #ffffff;
+                border-right: 1px solid #e5e7eb;
+                padding: 20px 0;
+            }
+
+                .sidebar .logo {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #990000;
+                    padding: 0 16px 25px;
+                }
+
+            .sidebar-menu {
+                list-style: none;
+            }
+
+                .sidebar-menu li {
+                    margin-bottom: 4px;
+                }
+
+                    .sidebar-menu li a {
+                        display: block;
+                        padding: 10px 16px;
+                        color: #374151;
+                        text-decoration: none;
+                        font-size: 14px;
+                        border-radius: 0;
+                    }
+
+                        .sidebar-menu li a:hover,
+                        .sidebar-menu li a.active {
+                            background-color: #990000;
+                            color: #ffffff;
+                        }
+
+            /* --- MAIN CONTENT --- */
+            .main-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .page-header {
+                background-color: #ffffff;
+                padding: 16px 24px;
+                border-bottom: 1px solid #e5e7eb;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+                font-weight: 600;
+                color: #111827;
+            }
+
+            .breadcrumb {
+                font-size: 13px;
+                color: #6b7280;
+                margin-top: 4px;
+            }
+
+            .header-actions {
+                display: flex;
+                gap: 10px;
+            }
+
+            .btn-red {
+                background-color: #990000;
+                color: white;
+                border: none;
+                padding: 8px 14px;
+                border-radius: 3px;
+                font-size: 13px;
+                font-weight: 500;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+                .btn-red:hover {
+                    background-color: #800000;
+                }
+
+            .content-area {
+                padding: 24px;
+                flex: 1;
+            }
+
+            .card {
+                background: #ffffff;
+                border-radius: 4px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+                border: 1px solid #e5e7eb;
+                overflow: hidden;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+                table th, table td {
+                    padding: 12px 15px;
+                    text-align: left;
+                    border-bottom: 1px solid #e5e7eb;
+                    font-size: 13px;
+                }
+
+                table th {
+                    background-color: #f9fafb;
+                    font-weight: 600;
+                    color: #374151;
+                }
+
+            .status-active {
+                color: #166534;
+                font-weight: 500;
+            }
+
+            .status-inactive {
+                color: #991b1b;
+                font-weight: 500;
+            }
+
+            .empty-text {
+                padding: 30px;
+                text-align: center;
+                color: #9ca3af;
+            }
+
+            footer {
+                text-align: center;
+                padding: 12px;
+                font-size: 12px;
+                color: #9ca3af;
+                border-top: 1px solid #e5e7eb;
+                margin-top: auto;
+            }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+
+        <!-- Sidebar (tinanggal na ang duplicate Branches List) -->
+        <aside class="sidebar">
+            <div class="logo">Inventory</div>
+            <ul class="sidebar-menu">
+                <li><a href="@Url.Action("Dashboard")">📊 Dashboard</a></li>
+                <li><a href="@Url.Action("UserAccount")" class="active">👤 Users</a></li>
+                <li><a href="@Url.Action("Branches")">🏢 Branches</a></li>
+                <li><a href="#">📦 Inventory</a></li>
+                <li><a href="#">⚙️ Settings</a></li>
+                <li><a href="#">🔒 Security</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="page-header">
+                <div class="page-title">
+                    <h1>Users List</h1>
+                    <div class="breadcrumb">Overview > All Users</div>
+                </div>
+                <div class="header-actions">
+                    <a href="@Url.Action("CreateUser")" class="btn-red">+ Add New User</a>
+                    <a href="@Url.Action("Logout")" class="btn-red">Logout</a>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="card">
+                    @if (users.Any())
+                    {
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Account ID</th>
+                                    <th>Full Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>User Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in users)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>@item.ACCOUNT_ID</td>
+                                        <td>@item.FULL_NAME</td>
+                                        <td>@item.USERNAME</td>
+                                        <td>@item.EMAIL</td>
+                                        <td>@item.CONTACT</td>
+                                        <td>@item.USER_TYPE</td>
+                                        <td>
+                                            <span class="@(item.STATUS == "Active" ? "status-active" : "status-inactive")">
+                                                @item.STATUS
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="empty-text">No user accounts found.</div>
+                    }
+                </div>
+            </div>
+
+            <footer>© 2026 Your Business Name. All rights reserved.</footer>
+        </div>
+    </div>
+</body>
+</html>
