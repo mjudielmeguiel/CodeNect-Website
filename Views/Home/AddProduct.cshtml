@@ -1,0 +1,210 @@
+﻿@{
+    ViewData["Title"] = "Add New Product";
+    var branches = ViewBag.Branches as List<dynamic> ?? new();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Product</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            body {
+                background: #f8fafc;
+            }
+
+            .page-container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 200px;
+                background: #fff;
+                border-right: 1px solid #e5e7eb;
+                padding: 20px 0;
+            }
+
+                .sidebar .logo {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #990000;
+                    padding: 0 16px 25px;
+                }
+
+            .sidebar-menu a {
+                display: block;
+                padding: 10px 16px;
+                margin: 4px 0;
+                color: #333;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+                .sidebar-menu a:hover, .sidebar-menu a.active {
+                    background: #990000;
+                    color: white;
+                }
+
+            .main-content {
+                flex: 1;
+                padding: 30px;
+            }
+
+            .page-title {
+                font-size: 20px;
+                color: #111;
+                margin-bottom: 20px;
+            }
+
+            .form-card {
+                background: white;
+                padding: 25px;
+                border-radius: 4px;
+                border: 1px solid #e5e7eb;
+                max-width: 700px;
+            }
+
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .full {
+                grid-column: 1/-1;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+                .form-group label {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: #444;
+                }
+
+                .form-group input, .form-group select {
+                    padding: 8px 10px;
+                    border: 1px solid #990000;
+                    border-radius: 3px;
+                    font-size: 13px;
+                }
+
+            .btn-save {
+                width: 100%;
+                background: #990000;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 3px;
+                font-weight: 600;
+                margin-top: 15px;
+                cursor: pointer;
+            }
+
+                .btn-save:hover {
+                    background: #800000;
+                }
+
+            .back {
+                display: block;
+                margin-top: 15px;
+                color: #990000;
+                text-decoration: none;
+                font-size: 13px;
+                text-align: center;
+            }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="sidebar">
+            <div class="logo">Inventory</div>
+            <div class="sidebar-menu">
+                <a asp-action="Dashboard">📊 Dashboard</a>
+                <a asp-action="UserAccount">👤 Users</a>
+                <a asp-action="Branches">🏢 Branches</a>
+                <a asp-action="Inventory" class="active">📦 Inventory</a>
+                <a href="#">⚙️ Settings</a>
+                <a href="#">🔒 Security</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h2 class="page-title">➕ ADD NEW PRODUCT</h2>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div style="background:#fef2f2; color:#991b1b; padding:10px; border-radius:4px; margin-bottom:15px;">@ViewBag.Error</div>
+            }
+
+            <form asp-action="AddProductSubmit" method="post" class="form-card">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Select Branch *</label>
+                        <select name="BRANCH_ID" required>
+                            <option value="">-- Choose Branch --</option>
+                            @foreach (var b in branches)
+                            {
+                                <option value="@b.Id">@b.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Barcode</label>
+                        <input type="text" name="BARCODE">
+                    </div>
+                    <div class="form-group">
+                        <label>Product / Brand *</label>
+                        <input type="text" name="BRAND" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" name="CATEGORY">
+                    </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <input type="text" name="SIZE">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <input type="text" name="UNIT">
+                    </div>
+                    <div class="form-group">
+                        <label>SKU</label>
+                        <input type="text" name="SKU">
+                    </div>
+                    <div class="form-group">
+                        <label>Vendor</label>
+                        <input type="text" name="VENDOR">
+                    </div>
+                    <div class="form-group">
+                        <label>Available Qty *</label>
+                        <input type="number" name="AVAILABLE" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price *</label>
+                        <input type="number" name="PRICE" step="0.01" min="0" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-save">✅ SAVE PRODUCT</button>
+                <a asp-action="Inventory" class="back">← Back to Inventory</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

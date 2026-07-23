@@ -28,6 +28,9 @@
 
             body {
                 background-color: #ffffff;
+                background-image: radial-gradient(#e0e0e0 1px, transparent 0);
+                background-size: 24px 24px;
+                background-position: 12px 12px;
                 color: var(--text-dark);
                 line-height: 1.6;
             }
@@ -42,6 +45,10 @@
             header {
                 padding: 20px 0;
                 border-bottom: 1px solid #f0f0f0;
+                background-color: rgba(255,255,255,0.95);
+                position: sticky;
+                top: 0;
+                z-index: 99;
             }
 
             .header-content {
@@ -89,7 +96,7 @@
                 align-items: center;
                 padding: 60px 0;
                 gap: 40px;
-                min-height: 80vh;
+                min-height: 85vh;
             }
 
             .hero-left {
@@ -126,7 +133,6 @@
                 line-height: 1.7;
             }
 
-            /* Download Button */
             .btn-download {
                 display: inline-block;
                 background-color: var(--primary);
@@ -139,7 +145,7 @@
                 text-decoration: none;
                 margin-bottom: 35px;
                 transition: background-color 0.2s ease;
-                cursor: default;
+                cursor: pointer;
             }
 
                 .btn-download:hover {
@@ -171,7 +177,7 @@
                 margin-top: 4px;
             }
 
-            /* Modern Login Card */
+            /* Login Card */
             .login-card {
                 width: 360px;
                 background: var(--white);
@@ -261,7 +267,6 @@
                 text-align: center;
                 margin-top: 22px;
                 font-size: 13px;
-                line-height: 1.8;
             }
 
                 .login-links a {
@@ -287,11 +292,113 @@
                 border-radius: 6px;
             }
 
+            /* ✅ BAGONG SEKSYON: LAYUNIN NG SYSTEM */
+            .purpose-section {
+                padding: 70px 0;
+                background-color: rgba(255,255,255,0.6);
+            }
+
+            .section-heading {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+                .section-heading h2 {
+                    font-size: 32px;
+                    font-weight: 700;
+                    color: var(--text-dark);
+                    margin-bottom: 12px;
+                }
+
+                .section-heading p {
+                    font-size: 16px;
+                    color: var(--text-gray);
+                    max-width: 700px;
+                    margin: 0 auto;
+                }
+
+            .purpose-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+                align-items: center;
+            }
+
+            .purpose-text h3 {
+                font-size: 22px;
+                color: var(--primary);
+                margin-bottom: 15px;
+            }
+
+            .purpose-text p {
+                font-size: 15px;
+                color: var(--text-gray);
+                line-height: 1.8;
+                margin-bottom: 12px;
+            }
+
+            .purpose-list {
+                list-style: none;
+            }
+
+                .purpose-list li {
+                    padding: 8px 0;
+                    color: var(--text-dark);
+                    font-weight: 500;
+                }
+
+                    .purpose-list li::before {
+                        content: "✓";
+                        color: var(--primary);
+                        font-weight: bold;
+                        margin-right: 10px;
+                    }
+
+            /* ✅ BAGONG SEKSYON: BAKIT ITO ANG KAILANGAN MO */
+            .why-section {
+                padding: 70px 0;
+            }
+
+            .why-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 28px;
+            }
+
+            .why-card {
+                background-color: var(--white);
+                padding: 30px 24px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                text-align: center;
+                transition: transform 0.3s ease;
+            }
+
+                .why-card:hover {
+                    transform: translateY(-5px);
+                }
+
+            .why-icon {
+                font-size: 40px;
+                margin-bottom: 15px;
+            }
+
+            .why-card h4 {
+                font-size: 18px;
+                color: var(--primary);
+                margin-bottom: 10px;
+            }
+
+            .why-card p {
+                font-size: 14px;
+                color: var(--text-gray);
+                line-height: 1.7;
+            }
+
             /* Modules Section */
             .modules-section {
                 background-color: var(--light-gray);
-                padding: 50px 0 70px;
-                margin-top: 20px;
+                padding: 60px 0 80px;
             }
 
             .modules-header {
@@ -300,7 +407,7 @@
             }
 
                 .modules-header h2 {
-                    font-size: 24px;
+                    font-size: 28px;
                     font-weight: 700;
                     margin-bottom: 8px;
                 }
@@ -342,6 +449,72 @@
                 color: var(--text-gray);
                 line-height: 1.7;
             }
+
+            /* ✅ BAGONG SEKSYON: TUNGKOL SA AMIN */
+            .about-section {
+                padding: 70px 0;
+                background-color: rgba(255,255,255,0.6);
+            }
+
+            .about-text {
+                max-width: 800px;
+                margin: 0 auto;
+                text-align: center;
+                font-size: 15px;
+                color: var(--text-gray);
+                line-height: 1.8;
+            }
+
+            /* Footer */
+            footer {
+                background-color: var(--text-dark);
+                color: #ccc;
+                padding: 40px 0 20px;
+                text-align: center;
+                font-size: 13px;
+            }
+
+                footer p {
+                    margin-bottom: 8px;
+                }
+
+            /* Responsive */
+            @@media only screen and (max-width: 992px) {
+                .modules-grid, .why-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .purpose-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-section {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .hero-left p {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .stats-row {
+                    justify-content: center;
+                }
+            }
+            @@media only screen and (max-width: 576px) {
+                .modules-grid, .why-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .hero-left h1 {
+                    font-size: 36px;
+                }
+
+                .login-card {
+                    width: 100%;
+                }
+            }
     </style>
 </head>
 <body>
@@ -353,9 +526,10 @@
                 <span>C</span> CodeNect System Alliance
             </div>
             <nav class="nav-links">
-                <a href="#">System Overview</a>
-                <a href="#">Modules</a>
-                <a href="#">Security</a>
+                <a href="#purpose">Purpose</a>
+                <a href="#features">Why Us</a>
+                <a href="#modules">Modules</a>
+                <a asp-action="PricingPlans">Pricing</a>
                 <a href="#">Support</a>
             </nav>
         </div>
@@ -369,18 +543,15 @@
             <p>
                 CodeNect System Alliance — complete tools for inventory, stock management, ordering, transfers, and reporting. Built for speed, accuracy, and control.
             </p>
-
-            <!-- Download Now Button -->
-            <a href="https://github.com/mjudielmeguiel/CodeNect-System-Alliance.git" class="btn-download">Download Now</a>
-
+            <a asp-action="PricingPlans" class="btn-download">View Pricing & Download</a>
             <div class="stats-row">
                 <div class="stat-item">
-                    <span class="stat-value">5+</span>
-                    <span class="stat-label">BRANCHES</span>
+                    <span class="stat-value">@ViewData["TotalAccounts"]+</span>
+                    <span class="stat-label">DOWNLOADS</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-value">10K+</span>
-                    <span class="stat-label">PRODUCTS</span>
+                    <span class="stat-value">10</span>
+                    <span class="stat-label">ACTIVE USERS</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-value">24/7</span>
@@ -389,11 +560,10 @@
             </div>
         </div>
 
-        <!-- Modern Login Box -->
+        <!-- Login Box -->
         <div id="login" class="login-card">
             <h3>CODENECT SYSTEM ALLIANCE</h3>
             <p class="login-tagline">"Experience Better for Improving Services"</p>
-
             <form asp-action="Login" method="post">
                 <div class="form-group">
                     <label>Username</label>
@@ -406,15 +576,11 @@
                         <span class="toggle-pass" onclick="togglePass()">👁</span>
                     </div>
                 </div>
-
                 <button type="submit" class="btn-login">Login</button>
             </form>
-
             <div class="login-links">
-                <a href="#">Forgot Account?</a><br>
-                Don't have an account? <a asp-action="Register">Create Account</a>
+                <a href="#">Forgot Password?</a>
             </div>
-
             @if (!string.IsNullOrEmpty(ViewBag.Error))
             {
                 <div class="error-msg">@ViewBag.Error</div>
@@ -422,14 +588,84 @@
         </div>
     </div>
 
+    <!-- ✅ SEKSYON: LAYUNIN NG SYSTEM -->
+    <section id="purpose" class="purpose-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Purpose of the System</h2>
+                <p>Why was CodeNect System Alliance built, and what problems does it solve for your business?</p>
+            </div>
+            <div class="purpose-grid">
+                <div class="purpose-text">
+                    <h3>Streamline Your Business Operations</h3>
+                    <p>The main goal of this system is to replace manual recording, logbooks, and scattered spreadsheets with one unified platform. It ensures that every product, transaction, and report is recorded accurately and instantly.</p>
+                    <p>It is designed for small to medium businesses, branches, and suppliers who want to have full control over their inventory without the confusion and errors of manual work.</p>
+                </div>
+                <div>
+                    <ul class="purpose-list">
+                        <li>Eliminate inventory errors and missing items</li>
+                        <li>Track stock levels automatically in real-time</li>
+                        <li>Monitor sales, orders, and transfers across branches</li>
+                        <li>Generate accurate reports for decision making</li>
+                        <li>Secure your data and access it anywhere</li>
+                        <li>Save time and reduce workload for your staff</li>
+                        <li>Prevent stock shortages and overstocking</li>
+                        <li>Centralize all data in one safe database</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ SEKSYON: BAKIT ITO ANG KAILANGAN MO -->
+    <section id="features" class="why-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Why Choose CodeNect System Alliance?</h2>
+                <p>Simple, reliable, and built exactly for how your business works.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">⚡</div>
+                    <h4>Fast & Easy to Use</h4>
+                    <p>Designed to be familiar and simple. No complicated setup — your team can learn and use it right away.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🔒</div>
+                    <h4>Secure & Organized</h4>
+                    <p>User accounts, roles, and permissions ensure only authorized people can access sensitive data.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">📊</div>
+                    <h4>Real-Time Reports</h4>
+                    <p>See your sales, available stock, and history instantly. Helps you make the right decisions for your business.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🌐</div>
+                    <h4>Online & Accessible</h4>
+                    <p>Connect anywhere with internet. Works across branches and keeps all data updated at the same time.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🔄</div>
+                    <h4>Complete Integration</h4>
+                    <p>From ordering to selling and transferring — everything is connected and recorded automatically.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">💸</div>
+                    <h4>Affordable Plans</h4>
+                    <p>Choose the right package for your business size — from free basic use to full enterprise features.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Modules Section -->
-    <section class="modules-section">
+    <section id="modules" class="modules-section">
         <div class="container">
             <div class="modules-header">
                 <h2>Available System Modules</h2>
-                <p>All the tools you use daily in one unified platform — same look and function as your existing system.</p>
+                <p>All the tools you use daily in one unified platform.</p>
             </div>
-
             <div class="modules-grid">
                 <div class="module-card">
                     <div class="module-header">IT SUPPORT DASHBOARD</div>
@@ -438,7 +674,6 @@
                         Main control panel — view inventory, transactions, user info, and system status in real-time.
                     </div>
                 </div>
-
                 <div class="module-card">
                     <div class="module-header">STOCK ORDER</div>
                     <div class="module-body">
@@ -446,7 +681,6 @@
                         Input barcode, quantity, vendor details, and submit purchase requests easily.
                     </div>
                 </div>
-
                 <div class="module-card">
                     <div class="module-header">STOCK TRANSFER</div>
                     <div class="module-body">
@@ -454,7 +688,6 @@
                         Transfer stock from one location to another with full audit trail.
                     </div>
                 </div>
-
                 <div class="module-card">
                     <div class="module-header">RETURN TO VENDOR</div>
                     <div class="module-body">
@@ -462,7 +695,6 @@
                         Log damaged, expired, or wrong items sent back to suppliers.
                     </div>
                 </div>
-
                 <div class="module-card">
                     <div class="module-header">INVENTORY MANAGEMENT</div>
                     <div class="module-body">
@@ -470,7 +702,6 @@
                         Complete control of your stock — prices, sizes, brands, and availability.
                     </div>
                 </div>
-
                 <div class="module-card">
                     <div class="module-header">PRICE ADJUSTMENT</div>
                     <div class="module-body">
@@ -481,6 +712,27 @@
             </div>
         </div>
     </section>
+
+    <!-- ✅ SEKSYON: TUNGKOL SA AMIN -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>About CodeNect System Alliance</h2>
+            </div>
+            <div class="about-text">
+                <p>CodeNect System Alliance was created to provide reliable and easy-to-use inventory and business management solutions for Filipino businesses. We understand that managing stocks and transactions can be time-consuming and difficult without the right tools.</p>
+                <p>Our goal is to help business owners and staff focus more on growing their business, while the system takes care of organizing, recording, and securing your data accurately. Every part of this system is built with attention to detail, security, and practical use in mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 CodeNect System Alliance. All Rights Reserved.</p>
+            <p>"Experience Better for Improving Services"</p>
+        </div>
+    </footer>
 
     <script>
             function togglePass() {

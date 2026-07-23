@@ -1,0 +1,284 @@
+﻿@{
+    ViewData["Title"] = "Pricing Plans";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pricing Plans - CodeNect System Alliance</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            }
+
+            :root {
+                --primary: #990000;
+                --primary-hover: #800000;
+                --light-gray: #f8f9fa;
+                --border-gray: #e5e7eb;
+                --text-gray: #6b7280;
+                --text-dark: #111827;
+                --white: #ffffff;
+            }
+
+            body {
+                background-color: var(--white);
+                color: var(--text-dark);
+                line-height: 1.6;
+                padding: 40px 20px;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .page-header {
+                margin-bottom: 45px;
+            }
+
+            .step-label {
+                font-size: 13px;
+                color: var(--text-gray);
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+                font-weight: 800;
+                color: var(--text-dark);
+            }
+
+            .plans-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 18px;
+            }
+
+            .plan-card {
+                background: var(--white);
+                border: 1px solid var(--border-gray);
+                border-radius: 10px;
+                overflow: hidden;
+                transition: all 0.2s ease;
+                position: relative;
+            }
+
+                .plan-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 20px rgba(153, 0, 0, 0.08);
+                }
+
+            .most-popular {
+                border: 2px solid var(--primary);
+            }
+
+            .popular-badge {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: var(--primary);
+                color: var(--white);
+                text-align: center;
+                font-size: 12px;
+                font-weight: 700;
+                padding: 6px;
+            }
+
+            .plan-header {
+                padding: 24px 18px 18px;
+                background: linear-gradient(135deg, #990000 0%, #cc0000 50%, #ff3333 100%);
+                color: var(--white);
+            }
+
+            .most-popular .plan-header {
+                padding-top: 38px;
+            }
+
+            .plan-name {
+                font-size: 17px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+
+            .plan-resolution {
+                font-size: 14px;
+                font-weight: 500;
+                opacity: 0.9;
+            }
+
+            .plan-body {
+                padding: 20px 18px;
+            }
+
+            .price-row {
+                margin-bottom: 16px;
+            }
+
+            .price-label {
+                font-size: 12px;
+                color: var(--text-gray);
+                margin-bottom: 4px;
+            }
+
+            .price-value {
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--text-dark);
+            }
+
+            .feature-list {
+                list-style: none;
+            }
+
+                .feature-list li {
+                    padding: 7px 0;
+                    font-size: 13px;
+                    color: var(--text-gray);
+                    border-bottom: 1px solid #f3f4f6;
+                }
+
+                    .feature-list li:last-child {
+                        border-bottom: none;
+                    }
+
+            .btn-select {
+                display: block;
+                width: 100%;
+                text-align: center;
+                background-color: var(--primary);
+                color: var(--white);
+                padding: 11px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 600;
+                margin-top: 20px;
+                transition: background-color 0.2s ease;
+            }
+
+                .btn-select:hover {
+                    background-color: var(--primary-hover);
+                }
+
+            /* ✅ WALANG MALI DITO - NASA LOOB NG STYLE TAG */
+            @@media only screen and (max-width: 992px) {
+                .plans-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @@media only screen and (max-width: 576px) {
+                .plans-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div class="step-label">STEP 1 OF 1</div>
+            <h1>Choose the plan that's right for you</h1>
+        </div>
+
+        <div class="plans-grid">
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">Basic</div>
+                    <div class="plan-resolution">1 Branch</div>
+                </div>
+                <div class="plan-body">
+                    <div class="price-row">
+                        <div class="price-label">Monthly price</div>
+                        <div class="price-value">Free</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>System Access: Good</li>
+                        <li>Inventory & Sales</li>
+                        <li>Reports: Basic</li>
+                        <li>Supported Devices: PC, Laptop</li>
+                        <li>Concurrent Users: 2</li>
+                        <li>Download/Install: 1 Device</li>
+                    </ul>
+                    <a href="https://github.com/mjudielmeguiel/CodeNect-System-Alliance.git" class="btn-select">Download</a>
+                </div>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">Standard</div>
+                    <div class="plan-resolution">Up to 5 Branches</div>
+                </div>
+                <div class="plan-body">
+                    <div class="price-row">
+                        <div class="price-label">Monthly price</div>
+                        <div class="price-value">₱ 1,500</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>System Access: Better</li>
+                        <li>All Modules Unlocked</li>
+                        <li>Reports: Full & Custom</li>
+                        <li>Supported Devices: All</li>
+                        <li>Concurrent Users: 10</li>
+                        <li>Download/Install: 5 Devices</li>
+                    </ul>
+                    <a href="#" class="btn-select">Subscribe</a>
+                </div>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-resolution">Up to 10 Branches</div>
+                </div>
+                <div class="plan-body">
+                    <div class="price-row">
+                        <div class="price-label">Monthly price</div>
+                        <div class="price-value">₱ 2,800</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>System Access: Best</li>
+                        <li>All Modules + Priority</li>
+                        <li>Reports: Advanced Export</li>
+                        <li>Supported Devices: All + Mobile</li>
+                        <li>Concurrent Users: Unlimited</li>
+                        <li>Download/Install: 15 Devices</li>
+                    </ul>
+                    <a href="#" class="btn-select">Subscribe</a>
+                </div>
+            </div>
+
+            <div class="plan-card most-popular">
+                <div class="popular-badge">Most Popular</div>
+                <div class="plan-header">
+                    <div class="plan-name">Premium</div>
+                    <div class="plan-resolution">Unlimited Branches</div>
+                </div>
+                <div class="plan-body">
+                    <div class="price-row">
+                        <div class="price-label">Monthly price</div>
+                        <div class="price-value">₱ 4,500</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>System Access: Ultimate</li>
+                        <li>All Features + Customization</li>
+                        <li>Reports: API & Integration</li>
+                        <li>Supported Devices: All Types</li>
+                        <li>Concurrent Users: Unlimited</li>
+                        <li>Download/Install: Unlimited</li>
+                    </ul>
+                    <a href="#" class="btn-select">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

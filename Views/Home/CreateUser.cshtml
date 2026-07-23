@@ -128,7 +128,7 @@
             <div class="form-grid">
                 <div class="form-group full-width">
                     <label>Branch</label>
-                    <select name="BRANCH_ID" id="BRANCH_ID">
+                    <select name="BRANCH_ID" id="BRANCH_ID" required>
                         <option value="">-- Select Branch --</option>
                         @foreach (var branch in ViewBag.Branches ?? new List<dynamic>())
                         {
@@ -177,9 +177,6 @@
                     <label>Contact Number</label>
                     <input type="text" name="CONTACT" />
                 </div>
-
-                <!-- 🚫 Profile Image section removed entirely -->
-
             </div>
 
             <button type="submit" class="btn-submit">✅ Save User Account</button>

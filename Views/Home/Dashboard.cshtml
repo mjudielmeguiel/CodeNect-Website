@@ -29,7 +29,7 @@
                 min-height: 100vh;
             }
 
-            /* SIDEBAR - Simpleng Menu Lang */
+            /* SIDEBAR */
             .sidebar {
                 width: 200px;
                 background: #ffffff;
@@ -107,16 +107,16 @@
 <body>
     <div class="app-container">
 
-        <!-- ✅ MENU: Dashboard, Users, Branches Lang -->
+        <!-- ✅ INAYOS NA MENU: TAMA NA ANG LINK NG INVENTORY -->
         <aside class="sidebar">
             <div class="logo">Inventory</div>
             <div class="sidebar-menu">
-                <a href="@Url.Action("Dashboard")" class="active">📊 Dashboard</a>
-                <a href="@Url.Action("UserAccount")">👤 Users</a>
-                <a href="@Url.Action("Branches")">🏢 Branches</a>
-                <li><a href="#">📦 Inventory</a></li>
-                <li><a href="#">⚙️ Settings</a></li>
-                <li><a href="#">🔒 Security</a></li>
+                <a asp-action="Dashboard" class="active">📊 Dashboard</a>
+                <a asp-action="UserAccount">👤 Users</a>
+                <a asp-action="Branches">🏢 Branches</a>
+                <a asp-action="Inventory">📦 Inventory</a>
+                <a href="#">⚙️ Settings</a>
+                <a href="#">🔒 Security</a>
             </div>
         </aside>
 
@@ -127,19 +127,16 @@
             </div>
 
             <div class="stats-grid">
-                <!-- Bilang ng Branches -->
                 <div class="stat-card">
                     <div class="number">@branchCount</div>
                     <div class="label">Active Branches</div>
                 </div>
 
-                <!-- Bilang ng Users -->
                 <div class="stat-card">
                     <div class="number">@userCount</div>
                     <div class="label">Registered Users</div>
                 </div>
 
-                <!-- Fixed Info -->
                 <div class="stat-card">
                     <div class="number">24/7</div>
                     <div class="label">System Access</div>

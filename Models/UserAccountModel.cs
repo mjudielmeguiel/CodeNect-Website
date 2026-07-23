@@ -9,10 +9,13 @@ namespace CodeNect_Website.Models
 
         [Required]
         [Display(Name = "Account ID")]
-        public string ACCOUNT_ID { get; set; } = string.Empty;
+        public string ACCOUNT { get; set; } = string.Empty;
 
         [Display(Name = "Branch ID")]
         public string? BRANCH_ID { get; set; }
+
+        [Display(Name = "Branch Name")]
+        public string? BRANCH { get; set; }
 
         [Required]
         [Display(Name = "Full Name")]
@@ -34,11 +37,11 @@ namespace CodeNect_Website.Models
         [Display(Name = "User Type")]
         public string USER_TYPE { get; set; } = "Staff";
 
-        [Display(Name = "Plan Type")]
-        public string? PLAN_TYPE { get; set; }
+        [Display(Name = "Plan")]
+        public string? PLAN { get; set; }
 
-        [Display(Name = "Profile Image URL")]
-        public string? PROFILE_IMAGE { get; set; }
+        [Display(Name = "Profile")]
+        public string? PROFILE { get; set; }
 
         [Required]
         public string STATUS { get; set; } = "Active";

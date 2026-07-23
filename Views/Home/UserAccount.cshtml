@@ -174,7 +174,7 @@
 <body>
     <div class="app-container">
 
-        <!-- Sidebar (tinanggal na ang duplicate Branches List) -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">Inventory</div>
             <ul class="sidebar-menu">
@@ -209,6 +209,8 @@
                                 <tr>
                                     <th>User ID</th>
                                     <th>Account ID</th>
+                                    <th>Branch ID</th>
+                                    <th>Branch Name</th>
                                     <th>Full Name</th>
                                     <th>Username</th>
                                     <th>Email</th>
@@ -222,7 +224,10 @@
                                 {
                                     <tr>
                                         <td>@item.ID</td>
-                                        <td>@item.ACCOUNT_ID</td>
+                                        <td>@item.ACCOUNT</td>
+                                        <!-- ✅ IPAPAKITA NA ANG BRANCH DETAILS -->
+                                        <td>@(string.IsNullOrEmpty(item.BRANCH_ID) ? "—" : item.BRANCH_ID)</td>
+                                        <td>@(string.IsNullOrEmpty(item.BRANCH) ? "—" : item.BRANCH)</td>
                                         <td>@item.FULL_NAME</td>
                                         <td>@item.USERNAME</td>
                                         <td>@item.EMAIL</td>

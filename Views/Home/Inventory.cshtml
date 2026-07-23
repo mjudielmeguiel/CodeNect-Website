@@ -1,0 +1,302 @@
+﻿@{
+    ViewData["Title"] = "Inventory";
+    var products = ViewBag.Products as List<CodeNect_Website.Models.InventoryModel> ?? new();
+    var branches = ViewBag.Branches as List<dynamic> ?? new();
+    var selectedBranch = ViewBag.SelectedBranch as string ?? "";
+    var searchProduct = ViewBag.SearchProduct as string ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            body {
+                background-color: #f8fafc;
+                color: #1e293b;
+            }
+
+            .page-container {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                width: 200px;
+                background: #ffffff;
+                border-right: 1px solid #e5e7eb;
+                padding: 20px 0;
+            }
+
+                .sidebar .logo {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: #990000;
+                    padding: 0 16px 25px;
+                    display: block;
+                }
+
+            .sidebar-menu a {
+                display: block;
+                padding: 10px 16px;
+                margin: 4px 0;
+                color: #333;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+                .sidebar-menu a:hover, .sidebar-menu a.active {
+                    background: #990000;
+                    color: #ffffff;
+                }
+
+            .main-content {
+                flex: 1;
+                padding: 25px;
+            }
+
+            .page-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .page-title h2 {
+                font-size: 20px;
+                color: #111827;
+            }
+
+            .page-title p {
+                font-size: 13px;
+                color: #6b7280;
+                margin-top: 2px;
+            }
+
+            .btn-logout {
+                background: #990000;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 3px;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+            }
+
+            .btn-add {
+                background: #990000;
+                color: white;
+                padding: 8px 16px;
+                border-radius: 3px;
+                text-decoration: none;
+                font-size: 13px;
+                font-weight: 500;
+                display: inline-block;
+                margin-bottom: 15px;
+            }
+
+            .filter-bar {
+                background: white;
+                padding: 15px;
+                border-radius: 4px;
+                margin-bottom: 15px;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                flex-wrap: wrap;
+                border: 1px solid #e5e7eb;
+            }
+
+            .filter-group {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+                .filter-group label {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #4b5563;
+                }
+
+                .filter-group select, .filter-group input {
+                    padding: 7px 10px;
+                    border: 1px solid #d1d5db;
+                    border-radius: 3px;
+                    font-size: 13px;
+                    width: 220px;
+                }
+
+            .btn-search {
+                background: #990000;
+                color: white;
+                border: none;
+                padding: 7px 18px;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 13px;
+                margin-top: 18px;
+            }
+
+            .btn-reset {
+                background: #e5e7eb;
+                color: #374151;
+                border: none;
+                padding: 7px 18px;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 13px;
+                margin-top: 18px;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+                border-radius: 4px;
+                overflow: hidden;
+                border: 1px solid #e5e7eb;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                text-align: left;
+                border-bottom: 1px solid #f3f4f6;
+                font-size: 13px;
+            }
+
+            th {
+                background: #990000;
+                color: white;
+                font-weight: 500;
+            }
+
+            .no-data {
+                text-align: center;
+                padding: 40px;
+                color: #6b7280;
+                font-size: 14px;
+            }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">Inventory</div>
+            <div class="sidebar-menu">
+                <a asp-action="Dashboard">📊 Dashboard</a>
+                <a asp-action="UserAccount">👤 Users</a>
+                <a asp-action="Branches">🏢 Branches</a>
+                <a asp-action="Inventory" class="active">📦 Inventory</a>
+                <a href="#">⚙️ Settings</a>
+                <a href="#">🔒 Security</a>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="page-top">
+                <div class="page-title">
+                    <h2>Product Inventory</h2>
+                    <p>Overview > All Products</p>
+                </div>
+                <a asp-action="Logout" class="btn-logout">Logout</a>
+            </div>
+
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div style="background:#fef2f2; color:#991b1b; padding:10px; border-radius:4px; margin-bottom:15px; border:1px solid #fecaca;">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <!-- ✅ ADD PRODUCT BUTTON -->
+            <div style="text-align:right;">
+                <a asp-action="AddProduct" class="btn-add">➕ Add New Product</a>
+            </div>
+
+            <!-- FILTER / SEARCH AREA -->
+            <form id="inventoryForm" asp-action="Inventory" method="get" class="filter-bar">
+                <div class="filter-group">
+                    <label>Select Branch</label>
+                    <select id="branchSelect" name="branchId">
+                        <option value="">-- All Branches --</option>
+                        @foreach (var b in branches)
+                        {
+                            <option value="@b.Id" selected="@(b.Id == selectedBranch)">@b.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Search Product / Barcode / SKU</label>
+                    <input type="text" name="searchProduct" value="@searchProduct" placeholder="Type here...">
+                </div>
+
+                <button type="submit" class="btn-search">🔍 Search</button>
+                <a asp-action="Inventory" class="btn-reset">Reset</a>
+            </form>
+
+            <!-- PRODUCTS TABLE -->
+            @if (products.Any())
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Branch ID</th>
+                            <th>Branch Name</th>
+                            <th>Barcode</th>
+                            <th>Product / Brand</th>
+                            <th>Category</th>
+                            <th>Size</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Date Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in products)
+                        {
+                            <tr>
+                                <td>@item.BRANCH_ID</td>
+                                <td>@item.BRANCH_NAME</td>
+                                <td>@item.BARCODE</td>
+                                <td>@item.BRAND</td>
+                                <td>@item.CATEGORY</td>
+                                <td>@item.SIZE</td>
+                                <td>@item.AVAILABLE</td>
+                                <td>₱@item.PRICE?.ToString("N2")</td>
+                                <td>@item.DATE_ADDED?.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="no-data">No products found. Add products first or select a branch.</div>
+            }
+        </div>
+    </div>
+
+    <!-- ✅ AUTOMATIC SUBMIT KAPAG NAG PALIT NG BRANCH -->
+    <script>
+            document.getElementById('branchSelect').addEventListener('change', function () {
+                document.getElementById('inventoryForm').submit();
+            });
+    </script>
+</body>
+</html>
