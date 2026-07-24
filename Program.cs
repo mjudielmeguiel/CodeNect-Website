@@ -15,7 +15,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseSession(); // ⬅️ SIGURADUHIN NANDITO ITO
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

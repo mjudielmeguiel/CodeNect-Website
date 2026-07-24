@@ -18,7 +18,6 @@ namespace CodeNect_Website.Controllers
             _config = config;
         }
 
-        // ✅ INAYOS NA: Bibilangin ang lahat ng account mula sa database
         public IActionResult Index()
         {
             string connectionString = _config.GetConnectionString("DefaultConnection") ?? string.Empty;
@@ -30,7 +29,7 @@ namespace CodeNect_Website.Controllers
                 {
                     using var conn = new MySqlConnection(connectionString);
                     conn.Open();
-                    const string sqlCount = "SELECT COUNT(ACCOUNT_ID) FROM `account`";
+                    const string sqlCount = "SELECT COUNT(`ACCOUNT_ID`) FROM `account`";
                     using var cmdCount = new MySqlCommand(sqlCount, conn);
                     var result = cmdCount.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
@@ -51,22 +50,33 @@ namespace CodeNect_Website.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel model)
         {
-            if (!ModelState.IsValid) return View("Index");
-            string connectionString = _config.GetConnectionString("DefaultConnection") ?? string.Empty;
-            if (string.IsNullOrEmpty(connectionString)) { ViewBag.Error = "Database connection error."; return View("Index"); }
+            string connStr = _config.GetConnectionString("DefaultConnection") ?? "";
+
             try
             {
-                using var conn = new MySqlConnection(connectionString);
+                using var conn = new MySqlConnection(connStr);
                 conn.Open();
-                const string sql = "SELECT ACCOUNT_ID FROM `account` WHERE RNAME = @Username AND PASSWORD = @Password";
-                using var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@Username", model.Username?.Trim() ?? string.Empty);
-                cmd.Parameters.AddWithValue("@Password", model.Password?.Trim() ?? string.Empty);
-                var accountId = cmd.ExecuteScalar()?.ToString();
-                if (!string.IsNullOrEmpty(accountId)) { HttpContext.Session.SetString("LoggedInAccountId", accountId); return RedirectToAction("Dashboard"); }
+
+                var cmd = new MySqlCommand("SELECT `ACCOUNT_ID` FROM `account` WHERE `USER_NAME` = @u AND `PASSWORD` = @p", conn);
+                cmd.Parameters.AddWithValue("@u", model.Username);
+                cmd.Parameters.AddWithValue("@p", model.Password);
+
+                var id = cmd.ExecuteScalar();
+
+                if (id != null)
+                {
+                    string accountId = id.ToString() ?? string.Empty;
+                    HttpContext.Session.SetString("LoggedInAccountId", accountId);
+                    return RedirectToAction("Dashboard");
+                }
+
                 ViewBag.Error = "Invalid username or password.";
             }
-            catch (Exception ex) { ViewBag.Error = "Error: " + ex.Message; }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error: " + ex.Message;
+            }
+
             return View("Index");
         }
 
@@ -82,23 +92,28 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                const string checkSql = "SELECT COUNT(*) FROM `account` WHERE RNAME = @RNAME OR EMAIL = @EMAIL";
+                const string checkSql = "SELECT COUNT(*) FROM `account` WHERE `USER_NAME` = @USERNAME OR `EMAIL` = @EMAIL";
                 using var checkCmd = new MySqlCommand(checkSql, conn);
-                checkCmd.Parameters.AddWithValue("@RNAME", model.USERNAME);
+                checkCmd.Parameters.AddWithValue("@USERNAME", model.USERNAME);
                 checkCmd.Parameters.AddWithValue("@EMAIL", model.EMAIL);
                 if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0) { ViewBag.Error = "Username or Email already exists."; return View("Register", model); }
+
                 string newAccountId = "ACC-" + DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                const string insertSql = @"INSERT INTO `account` (`ACCOUNT_ID`, `ACCOUNT`, `ADDRESS`, `CONTACT`, `EMAIL`, `RNAME`, `PASSWORD`, `SERIAL_NUMBER`, `STATUS`, `CREATE_AT`) VALUES (@AccountId, @Account, @Address, @Contact, @Email, @RName, @Password, @Serial, 'ACTIVE', NOW())";
+                const string insertSql = @"INSERT INTO `account` 
+                (`ACCOUNT_ID`, `ACCOUNT`, `ADDRESS`, `CONTACT`, `EMAIL`, `USER_NAME`, `PASSWORD`, `SERIAL_NUMBER`, `STATUS`, `CREATE_AT`) 
+                VALUES (@AccountId, @Account, @Address, @Contact, @Email, @UserName, @Password, @Serial, 'OFFLINE', NOW())";
+
                 using var cmd = new MySqlCommand(insertSql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", newAccountId);
                 cmd.Parameters.AddWithValue("@Account", model.ACCOUNT);
                 cmd.Parameters.AddWithValue("@Address", string.IsNullOrWhiteSpace(model.ADDRESS) ? DBNull.Value : model.ADDRESS);
                 cmd.Parameters.AddWithValue("@Contact", model.CONTACT);
                 cmd.Parameters.AddWithValue("@Email", model.EMAIL);
-                cmd.Parameters.AddWithValue("@RName", model.USERNAME);
+                cmd.Parameters.AddWithValue("@UserName", model.USERNAME);
                 cmd.Parameters.AddWithValue("@Password", model.PASSWORD);
                 cmd.Parameters.AddWithValue("@Serial", string.IsNullOrWhiteSpace(model.SERIAL_NUMBER) ? DBNull.Value : model.SERIAL_NUMBER);
                 cmd.ExecuteNonQuery();
+
                 ViewBag.Success = "Account created successfully! You can now log in.";
                 return View("Index");
             }
@@ -115,10 +130,10 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                var cmdBranches = new MySqlCommand("SELECT COUNT(*) FROM `branches` WHERE ACCOUNT_ID = @AccountId", conn);
+                var cmdBranches = new MySqlCommand("SELECT COUNT(*) FROM `branches` WHERE `ACCOUNT_ID` = @AccountId", conn);
                 cmdBranches.Parameters.AddWithValue("@AccountId", accountId);
                 branchCount = Convert.ToInt32(cmdBranches.ExecuteScalar());
-                var cmdUsers = new MySqlCommand("SELECT COUNT(*) FROM `user_accounts` WHERE ACCOUNT = @AccountId", conn);
+                var cmdUsers = new MySqlCommand("SELECT COUNT(*) FROM `user_accounts` WHERE `ACCOUNT` = @AccountId", conn);
                 cmdUsers.Parameters.AddWithValue("@AccountId", accountId);
                 userCount = Convert.ToInt32(cmdUsers.ExecuteScalar());
             }
@@ -137,7 +152,8 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                const string sql = @"SELECT ID, BRANCH_ID, BRANCH, ADDRESS, BUSINESS_TYPE, CONTACT, EMAIL, MANAGER, REGISTRATION_DATE, STATUS, TIN, TIN_REGISTERED FROM `branches` WHERE ACCOUNT_ID = @AccountId ORDER BY BRANCH ASC";
+                const string sql = @"SELECT `ID`, `BRANCH_ID`, `BRANCH`, `ADDRESS`, `BUSINESS_TYPE`, `CONTACT`, `EMAIL`, `MANAGER`, `REGISTRATION_DATE`, `STATUS`, `TIN`, `TIN_REGISTERED` 
+                                    FROM `branches` WHERE `ACCOUNT_ID` = @AccountId ORDER BY `BRANCH` ASC";
                 using var cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
                 using var reader = cmd.ExecuteReader();
@@ -197,7 +213,9 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                const string insertSql = @"INSERT INTO `branches` (`ACCOUNT_ID`, `BRANCH_ID`, `BRANCH`, `TIN`, `TIN_REGISTERED`, `BUSINESS_TYPE`, `ADDRESS`, `EMAIL`, `CONTACT`, `MANAGER`, `REGISTRATION_DATE`, `STATUS`) VALUES (@AccountId, @BranchId, @Branch, @Tin, @TinRegistered, @BusinessType, @Address, @Email, @Contact, @Manager, @RegDate, @Status)";
+                const string insertSql = @"INSERT INTO `branches` 
+                (`ACCOUNT_ID`, `BRANCH_ID`, `BRANCH`, `TIN`, `TIN_REGISTERED`, `BUSINESS_TYPE`, `ADDRESS`, `EMAIL`, `CONTACT`, `MANAGER`, `REGISTRATION_DATE`, `STATUS`) 
+                VALUES (@AccountId, @BranchId, @Branch, @Tin, @TinRegistered, @BusinessType, @Address, @Email, @Contact, @Manager, @RegDate, @Status)";
                 using var cmd = new MySqlCommand(insertSql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
                 cmd.Parameters.AddWithValue("@BranchId", newBranchId);
@@ -227,10 +245,10 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                const string sql = @"SELECT u.ID, u.ACCOUNT, u.BRANCH_ID, b.BRANCH, u.FULL_NAME, u.USERNAME, u.EMAIL, u.CONTACT, u.USER_TYPE, u.STATUS, u.DATE_CREATED, u.LAST_LOGIN_DATETIME 
+                const string sql = @"SELECT u.`ID`, u.`ACCOUNT`, u.`BRANCH_ID`, b.`BRANCH`, u.`FULL_NAME`, u.`USERNAME`, u.`EMAIL`, u.`CONTACT`, u.`USER_TYPE`, u.`STATUS`, u.`DATE_CREATED`, u.`LAST_LOGIN_DATETIME` 
                                     FROM `user_accounts` u
-                                    LEFT JOIN `branches` b ON u.BRANCH_ID = b.BRANCH_ID AND u.ACCOUNT = b.ACCOUNT_ID
-                                    WHERE u.ACCOUNT = @AccountId ORDER BY u.FULL_NAME ASC";
+                                    LEFT JOIN `branches` b ON u.`BRANCH_ID` = b.`BRANCH_ID` AND u.`ACCOUNT` = b.`ACCOUNT_ID`
+                                    WHERE u.`ACCOUNT` = @AccountId ORDER BY u.`FULL_NAME` ASC";
                 using var cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
                 using var reader = cmd.ExecuteReader();
@@ -292,8 +310,9 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
-                const string insertSql = @"INSERT INTO `user_accounts` (ACCOUNT, BRANCH_ID, FULL_NAME, USERNAME, PASSWORD, EMAIL, CONTACT, USER_TYPE, STATUS, DATE_CREATED) 
-                                            VALUES (@Account, @BranchId, @FullName, @Username, @Password, @Email, @Contact, @UserType, @Status, NOW())";
+                const string insertSql = @"INSERT INTO `user_accounts` 
+                (`ACCOUNT`, `BRANCH_ID`, `FULL_NAME`, `USERNAME`, `PASSWORD`, `EMAIL`, `CONTACT`, `USER_TYPE`, `STATUS`, `DATE_CREATED`) 
+                VALUES (@Account, @BranchId, @FullName, @Username, @Password, @Email, @Contact, @UserType, @Status, NOW())";
                 using var cmd = new MySqlCommand(insertSql, conn);
                 cmd.Parameters.AddWithValue("@Account", accountId);
                 cmd.Parameters.AddWithValue("@BranchId", string.IsNullOrWhiteSpace(branchId) ? DBNull.Value : branchId);
@@ -308,8 +327,8 @@ namespace CodeNect_Website.Controllers
 
                 if (userType.Equals("Manager", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrWhiteSpace(branchId))
                 {
-                    const string updateSql = @"UPDATE `branches` SET MANAGER = @ManagerName 
-                                                WHERE BRANCH_ID = @BranchId AND ACCOUNT_ID = @AccountId";
+                    const string updateSql = @"UPDATE `branches` SET `MANAGER` = @ManagerName 
+                                                WHERE `BRANCH_ID` = @BranchId AND `ACCOUNT_ID` = @AccountId";
                     using var cmdUpdate = new MySqlCommand(updateSql, conn);
                     cmdUpdate.Parameters.AddWithValue("@ManagerName", fullName);
                     cmdUpdate.Parameters.AddWithValue("@BranchId", branchId);
@@ -330,7 +349,7 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
                 conn.Open();
-                const string sql = "SELECT FULL_NAME FROM `user_accounts` WHERE ACCOUNT = @AccountId AND USER_TYPE = 'Manager' AND STATUS = 'Active'";
+                const string sql = "SELECT `FULL_NAME` FROM `user_accounts` WHERE `ACCOUNT` = @AccountId AND `USER_TYPE` = 'Manager' AND `STATUS` = 'Active'";
                 using var cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
                 using var reader = cmd.ExecuteReader();
@@ -348,7 +367,7 @@ namespace CodeNect_Website.Controllers
             {
                 using var conn = new MySqlConnection(_config.GetConnectionString("DefaultConnection"));
                 conn.Open();
-                const string sql = "SELECT BRANCH_ID, BRANCH FROM `branches` WHERE ACCOUNT_ID = @AccountId ORDER BY BRANCH";
+                const string sql = "SELECT `BRANCH_ID`, `BRANCH` FROM `branches` WHERE `ACCOUNT_ID` = @AccountId ORDER BY `BRANCH`";
                 using var cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
                 using var reader = cmd.ExecuteReader();
@@ -374,20 +393,20 @@ namespace CodeNect_Website.Controllers
                 using var conn = new MySqlConnection(connectionString);
                 conn.Open();
 
-                string sql = @"SELECT i.*, b.BRANCH AS BRANCH_NAME
+                string sql = @"SELECT i.*, b.`BRANCH` AS BRANCH_NAME
                        FROM `inventory_master_file` i
                        LEFT JOIN `branches` b 
-                         ON i.BRANCH_ID = b.BRANCH_ID 
-                         AND i.ACCOUNT_ID = b.ACCOUNT_ID
-                       WHERE i.ACCOUNT_ID = @AccountId";
+                         ON i.`BRANCH_ID` = b.`BRANCH_ID` 
+                         AND i.`ACCOUNT_ID` = b.`ACCOUNT_ID`
+                       WHERE i.`ACCOUNT_ID` = @AccountId";
 
                 if (!string.IsNullOrWhiteSpace(branchId))
-                    sql += " AND i.BRANCH_ID = @BranchId";
+                    sql += " AND i.`BRANCH_ID` = @BranchId";
 
                 if (!string.IsNullOrWhiteSpace(searchProduct))
-                    sql += " AND (i.BRAND LIKE @Search OR i.BARCODE LIKE @Search OR i.SKU LIKE @Search)";
+                    sql += " AND (i.`BRAND` LIKE @Search OR i.`BARCODE` LIKE @Search OR i.`SKU` LIKE @Search)";
 
-                sql += " ORDER BY b.BRANCH ASC, i.BRAND ASC";
+                sql += " ORDER BY b.`BRANCH` ASC, i.`BRAND` ASC";
 
                 using var cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@AccountId", accountId);
